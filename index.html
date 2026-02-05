@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're Invited To Our Wedding!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: url("bg.jpg");
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.mail-container {
+  width: 100%;
+  max-width: 400px;
+  perspective: 1000px;
+}
+
+.envelope {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+  cursor: pointer;
+}
+
+.envelope.open {
+  transform: rotateX(180deg);
+}
+
+.envelope-front, .envelope-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.envelope-front {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  border: 2px solid #e8c6d8;
+  z-index: 2;
+}
+
+.envelope-back {
+  background: white;
+  transform: rotateX(180deg);
+  overflow-y: auto;
+}
+
+.invitation-content {
+  padding: 25px 20px;
+}
+
+.stamp {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #c15464;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  border: 2px dashed white;
+  transform: rotate(15deg);
+}
+
+.envelope-front h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  color: #8b3643;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.envelope-front p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #9d4552;
+  padding: 0 10px;
+}
+
+.tap-hint {
+  background: #fff5f8;
+  padding: 10px 20px;
+  border-radius: 50px;
+  color: #9d4552;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  box-shadow: 0 4px 10px rgba(183, 110, 121, 0.1);
+  animation: pulse 2s infinite;
+  font-weight: 700;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f0e6eb;
+  padding-bottom: 15px;
+}
+
+.header h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  color: #8b3643;
+  margin-bottom: 8px;
+}
+
+.header p {
+  color: #9d4552;
+  font-style: italic;
+}
+
+.photobooth-section {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.photobooth-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #8b3643;
+  margin-bottom: 15px;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.photo-frame {
+  aspect-ratio: 3/4;
+  background: linear-gradient(#f9d7dd,#fab1be);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e8c6d8;
+  overflow: hidden;
+  position: relative;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-icon {
+  font-size: 2rem;
+  color: #e8a2c3;
+}
+
+.photo-label {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #8b3643;
+}
+
+.wedding-quote {
+  background: #f9f0f5;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+  border-left: 3px solid #e8a2c3;
+}
+
+.wedding-quote p {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.3rem;
+  color: #9d4552;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.wedding-quote .author {
+  color: #8b3643;
+  font-style: italic;
+}
+
+.couple-names {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  color: #8b3643;
+  text-align: center;
+  margin: 15px 0;
+}
+
+.wedding-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.detail-card {
+  background: #f9f0f5;
+  padding: 15px;
+  border-radius: 8px;
+  border-top: 3px solid #e8a2c3;
+  text-align: center;
+}
+
+.detail-card h3 {
+  color: #8b3643;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+}
+
+.detail-card p {
+  color: #9d4552;
+  line-height: 1.4;
+}
+
+.rsvp-container {
+  text-align: center;
+  padding: 15px 0;
+}
+
+.rsvp-button {
+  display: inline-block;
+  background: #e8a2c3;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  max-width: 250px;
+}
+
+.heart-divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0;
+  color: #8b3643;
+  font-size: 1.5rem;
+  gap: 10px;
+}
+
+.heart-divider::before,
+.heart-divider::after {
+  content: "";
+  height: 1px;
+  background: #e8a2c3;
+  flex: 1;
+}
+
+@media (max-width: 480px) {
+  .envelope {
+    height: 550px;
+  }
+  
+  .envelope-front h1 {
+    font-size: 2.2rem;
+  }
+  
+  .couple-names {
+    font-size: 1.8rem;
+  }
+}
+</style>
+</head>
+<body>
+    <div class="mail-container">
+        <div class="envelope" id="envelope">
+            <div class="envelope-front">
+                <div class="stamp">LOVE</div>
+                <h1>You're Invited!</h1>
+                <p>To celebrate the beginning of our forever. Tap to open our wedding invitation.</p>
+                <div class="tap-hint">
+                    <i class="fas fa-heart"></i>
+                    <span class="tap-text">Tap to open the invitation</span>
+                </div>
+            </div>
+            <div class="envelope-back">
+                <div class="invitation-content">
+                    <div class="header">
+                        <h2>With Joyful Hearts</h2>
+                        <p>We invite you to share in our celebration of love</p>
+                    </div>
+                    
+                    <div class="photobooth-section">
+                        <h3>Our Love Story</h3>
+                        <div class="photo-grid">
+                            <div class="photo-frame placeholder">
+                                <img src="1.png" alt="Our love story photo 1" loading="lazy">
+
+                                <div class="photo-label">Photo Coming Soon</div>
+                            </div>
+                            <div class="photo-frame placeholder">
+                                <img src="2.png" alt="Our love story photo 2" loading="lazy">
+                                <div class="photo-label">Photo Coming Soon</div>
+                            </div>
+                        </div>
+                        
+                        <div class="wedding-quote">
+                            <p>"In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine."</p>
+                            <div class="author">— Maya Angelou</div>
+                        </div>
+                    </div>
+                    
+                    <div class="heart-divider">
+                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    
+                    <div class="couple-names">
+                        Ashana & Anton
+                    </div>
+                    
+                    <div class="wedding-details">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-church"></i> Ceremony</h3>
+                            <p>Jollibee Downtown<br>9:00 AM</p>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-glass-cheers"></i> Reception</h3>
+                            <p>Kahit saan<br>5:00 PM</p>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-calendar-alt"></i> Date</h3>
+                            <p>Wednesday<br>February 02, 2026</p>
+                        </div>
+                    </div>
+                    
+                    <div class="rsvp-container">
+                        <a href="#" class="rsvp-button">RSVP With Love</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const envelope = document.getElementById('envelope');
+    const tapHint = document.querySelector('.tap-hint');
+    const tapText = document.querySelector('.tap-text');
+    const rsvpButton = document.querySelector('.rsvp-button');
+    
+    function toggleEnvelope() {
+        envelope.classList.toggle('open');
+        
+        if (envelope.classList.contains('open')) {
+            tapText.textContent = 'Tap to close the invitation';
+            tapHint.querySelector('i').className = 'fas fa-envelope-open';
+        } else {
+            tapText.textContent = 'Tap to open the invitation';
+            tapHint.querySelector('i').className = 'fas fa-heart';
+        }
+    }
+    
+    envelope.addEventListener('click', toggleEnvelope);
+    tapHint.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleEnvelope();
+    });
+    
+    rsvpButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        alert("Dearest Guest,\n\nWe're delighted you'll be joining us to celebrate our special day! Please save the date for February 2, 2026.\n\nWith love,\nAshana & Anton");
+    });
+    
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        envelope.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            toggleEnvelope();
+        });
+        
+        rsvpButton.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            alert("Dearest Guest,\n\nWe're delighted you'll be joining us to celebrate our special day! Please save the date for February 2, 2026.\n\nWith love,\nAshana & Anton");
+        });
+    }
+});
+</script>
+</body>
+</html>
